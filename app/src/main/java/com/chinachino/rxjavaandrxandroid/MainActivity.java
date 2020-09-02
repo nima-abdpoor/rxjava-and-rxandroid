@@ -5,9 +5,12 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.reactivestreams.Subscription;
+
 import java.util.List;
 
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.FlowableSubscriber;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
@@ -25,8 +28,40 @@ public class MainActivity extends AppCompatActivity {
 //        TextView text = findViewById(R.id.textview) ;
 //        text.setText(result);
         //User();
-        Timer();
+        //Timer();
+        //Manager();
+        flow();
 
+    }
+
+    private void flow() {
+        flowable flowable=new flowable();
+        flowable.flow().subscribe(new FlowableSubscriber<Integer>() {
+            @Override
+            public void onSubscribe(@NonNull Subscription s) {
+                Log.d(TAG, "onSubscribe: start");
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG, "onNext: "+integer);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.d(TAG, "onError() returned: " + t);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete: complete");
+            }
+        });
+    }
+
+    private void Manager() {
+        Manage manage =new Manage();
+        manage.run();
     }
 
     private void Timer() {

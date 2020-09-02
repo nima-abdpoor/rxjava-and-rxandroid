@@ -17,10 +17,7 @@ public class Manage {
         Observable<Task> taskObservable = Observable
                 .fromIterable(DataSource.CreateTasksList())
                 .subscribeOn(Schedulers.io())
-                .filter(task -> {
-                    Log.d(TAG2, "test: " + Thread.currentThread().getName());
-                    return task.isComplete();
-                })
+                .filter(task -> task.isComplete())
                 .observeOn(AndroidSchedulers.mainThread());
 
         taskObservable.subscribe(new Observer<Task>() {
@@ -33,11 +30,6 @@ public class Manage {
             public void onNext(@NonNull Task task) {
                 Log.d(TAG, "onNext: " + Thread.currentThread().getName());
                 Log.d(TAG, "onNext: " + task.getDescription());
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
 
             @Override
