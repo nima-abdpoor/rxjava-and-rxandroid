@@ -28,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
 //        String result = simple.Run();
 //        TextView text = findViewById(R.id.textview) ;
 //        text.setText(result);
-        User();
+        //User();
         //Timer();
         //Manager();
         //flow();
+        operator();
 
+    }
+
+    private void operator() {
+        Operators operators=new Operators();
+        operators.run();
     }
 
     private void flow() {
