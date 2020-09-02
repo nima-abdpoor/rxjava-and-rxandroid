@@ -2,7 +2,6 @@ package com.chinachino.rxjavaandrxandroid;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +24,37 @@ public class MainActivity extends AppCompatActivity {
 //        String result = simple.Run();
 //        TextView text = findViewById(R.id.textview) ;
 //        text.setText(result);
+        //User();
+        Timer();
+
+    }
+
+    private void Timer() {
+        timer timer = new timer();
+        timer.run().subscribe(new Observer<Long>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d(TAG, "onSubscribe: start");
+            }
+
+            @Override
+            public void onNext(@NonNull Long aLong) {
+                Log.d(TAG, "onNext: "+ aLong);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.e(TAG, "onError: ", e);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete: complete");
+            }
+        });
+    }
+
+    private void User() {
         AllUsers allUsers =new AllUsers();
         allUsers.getUserName().subscribe(new Observer<List<String>>() {
             @Override
