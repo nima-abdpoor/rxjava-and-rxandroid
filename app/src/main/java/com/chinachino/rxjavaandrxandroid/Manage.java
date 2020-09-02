@@ -6,6 +6,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -13,6 +14,7 @@ public class Manage {
     private final String TAG = "ObservableTask";
     private final String TAG2 = "testFilter";
 
+    CompositeDisposable disposable=new CompositeDisposable();
     public void run() {
         Observable<Task> taskObservable = Observable
                 .fromIterable(DataSource.CreateTasksList())
@@ -24,6 +26,7 @@ public class Manage {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.d(TAG, "onSubscribe: called");
+                disposable.add(d);
             }
 
             @Override
@@ -42,5 +45,6 @@ public class Manage {
                 Log.d(TAG, "onComplete: completed");
             }
         });
+
     }
 }

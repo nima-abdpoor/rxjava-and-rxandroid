@@ -12,11 +12,12 @@ import java.util.List;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.FlowableSubscriber;
 import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "salammmm";
-
+    CompositeDisposable disposable=new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
 //        String result = simple.Run();
 //        TextView text = findViewById(R.id.textview) ;
 //        text.setText(result);
-        //User();
+        User();
         //Timer();
         //Manager();
-        flow();
+        //flow();
 
     }
 
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.d(TAG, "onSubscribe: start");
+                disposable.add(d);
             }
 
             @Override
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.d(TAG, "onSubscribe: "+ d.toString());
+                disposable.add(d);
             }
 
             @Override
@@ -109,8 +112,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
+                disposable.clear();
                 Log.d(TAG, "onComplete: complete");
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.clear();
     }
 }
