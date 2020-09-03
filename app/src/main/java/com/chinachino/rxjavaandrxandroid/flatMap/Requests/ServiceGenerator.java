@@ -1,4 +1,4 @@
-package com.chinachino.rxjavaandrxandroid.Requests;
+package com.chinachino.rxjavaandrxandroid.flatMap.Requests;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
